@@ -28,5 +28,10 @@ enum Constants {
     }
 }
 
+struct QueryParameters {
+    let title: [String:Any]
+    let search: [String:Any]
+}
+
 protocol Query {
 }

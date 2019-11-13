@@ -15,6 +15,7 @@
 		1F939B40237C8413001E53DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F939B3E237C8413001E53DF /* LaunchScreen.storyboard */; };
 		1F939B48237C84C0001E53DF /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B47237C84C0001E53DF /* Query.swift */; };
 		1F939B4F237C9719001E53DF /* QueryParameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F939B4E237C9719001E53DF /* QueryParameters.plist */; };
+		1F939B51237CBFED001E53DF /* SelectTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B50237CBFED001E53DF /* SelectTypeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		1F939B47237C84C0001E53DF /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		1F939B4D237C96A2001E53DF /* Searching.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Searching.playground; path = MovieSearch/Searching.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1F939B4E237C9719001E53DF /* QueryParameters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QueryParameters.plist; sourceTree = "<group>"; };
+		1F939B50237CBFED001E53DF /* SelectTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTypeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				1F939B47237C84C0001E53DF /* Query.swift */,
+				1F939B50237CBFED001E53DF /* SelectTypeController.swift */,
 				1F939B4E237C9719001E53DF /* QueryParameters.plist */,
 				1F939B33237C8412001E53DF /* AppDelegate.swift */,
 				1F939B35237C8412001E53DF /* SceneDelegate.swift */,
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F939B51237CBFED001E53DF /* SelectTypeController.swift in Sources */,
 				1F939B48237C84C0001E53DF /* Query.swift in Sources */,
 				1F939B38237C8412001E53DF /* ViewController.swift in Sources */,
 				1F939B34237C8412001E53DF /* AppDelegate.swift in Sources */,
