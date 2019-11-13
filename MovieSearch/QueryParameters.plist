@@ -15,7 +15,7 @@
 			</dict>
 			
 			<dict>
-				<key>parameter</key>		<string>t></string>
+				<key>parameter</key>		<string>t</string>
 				<!-- required: application code must enforce "i" XOR "t" -->
 				<key>required</key>			<false/>
 				<key>options</key>			<array/>
@@ -24,7 +24,7 @@
 			</dict>
 
 			<dict>
-				<key>parameter</key>		<string>type></string>
+				<key>parameter</key>		<string>type</string>
 				<key>required</key>			<false/>
 				<key>options</key>			<array>
 				                                    <string>movie</string>
@@ -35,14 +35,14 @@
 				<key>notes</key>			<string>type of result</string>
 			</dict>
 			<dict>
-				<key>parameter</key>		<string>y></string>
+				<key>parameter</key>		<string>y</string>
 				<key>required</key>			<false/>
 				<key>options</key>			<array/>
 				<key>defaultValue</key>		<string/>
 				<key>notes</key>			<string>year released</string>
 			</dict>
 			<dict>
-				<key>parameter</key>		<string>plot></string>
+				<key>parameter</key>		<string>plot</string>
 				<key>required</key>			<false/>
 				<key>options</key>			<array>
 													<string>short</string>
@@ -91,7 +91,7 @@
 			</dict>
 
 			<dict>
-				<key>parameter</key>		<string>type></string>
+				<key>parameter</key>		<string>type</string>
 				<key>required</key>			<false/>
 				<key>options</key>			<array>
 				                                    <string>movie</string>
@@ -102,7 +102,7 @@
 				<key>notes</key>			<string>type of result</string>
 			</dict>
 			<dict>
-				<key>parameter</key>		<string>y></string>
+				<key>parameter</key>		<string>y</string>
 				<key>required</key>			<false/>
 				<key>options</key>			<array/>
 				<key>defaultValue</key>		<string/>
