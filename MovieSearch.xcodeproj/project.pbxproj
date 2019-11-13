@@ -26,6 +26,7 @@
 		1F939B3F237C8413001E53DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F939B41237C8413001E53DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F939B47237C84C0001E53DF /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		1F939B4B237C92DD001E53DF /* QueryParameters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = QueryParameters.plist; path = /Users/fritza/Documents/Jobs/MovieSearch/MovieSearch/QueryParameters.plist; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 		1F939B32237C8412001E53DF /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
+				1F939B4B237C92DD001E53DF /* QueryParameters.plist */,
 				1F939B47237C84C0001E53DF /* Query.swift */,
 				1F939B33237C8412001E53DF /* AppDelegate.swift */,
 				1F939B35237C8412001E53DF /* SceneDelegate.swift */,
