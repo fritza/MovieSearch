@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,9 +13,45 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hero bkg" translatesAutoresizingMaskIntoConstraints="NO" id="iDQ-UC-DhT">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MovieSearch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wC6-So-fdE">
+                                <rect key="frame" x="10" y="337.5" width="394" height="77"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="64"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from Fritz Anderson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54a-L7-76J">
+                                <rect key="frame" x="10" y="424.5" width="270" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version 1.0 (1)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2g-3F-J08">
+                                <rect key="frame" x="10" y="473.5" width="168" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1536560059" green="0.27531510590000002" blue="0.87067264320000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="wC6-So-fdE" firstAttribute="leading" secondItem="54a-L7-76J" secondAttribute="leading" id="202-AG-Iil"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iDQ-UC-DhT" secondAttribute="trailing" id="2aC-2t-e2W"/>
+                            <constraint firstItem="wC6-So-fdE" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" constant="-10" id="6kR-eJ-fyt"/>
+                            <constraint firstItem="V2g-3F-J08" firstAttribute="top" secondItem="54a-L7-76J" secondAttribute="bottom" constant="10" id="73Z-vL-wDr"/>
+                            <constraint firstItem="iDQ-UC-DhT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="B33-Nl-3b6"/>
+                            <constraint firstItem="iDQ-UC-DhT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="R4g-5o-UqZ"/>
+                            <constraint firstItem="wC6-So-fdE" firstAttribute="leading" secondItem="iDQ-UC-DhT" secondAttribute="leading" constant="10" id="dlq-tY-7En"/>
+                            <constraint firstItem="wC6-So-fdE" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-72" id="dnF-63-oZi"/>
+                            <constraint firstItem="54a-L7-76J" firstAttribute="top" secondItem="wC6-So-fdE" secondAttribute="bottom" constant="10" id="qgY-pP-Ulu"/>
+                            <constraint firstItem="54a-L7-76J" firstAttribute="leading" secondItem="V2g-3F-J08" secondAttribute="leading" id="y07-iF-kur"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iDQ-UC-DhT" secondAttribute="bottom" id="yL9-Fk-7WS"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -22,4 +60,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="hero bkg" width="980" height="1600"/>
+    </resources>
 </document>

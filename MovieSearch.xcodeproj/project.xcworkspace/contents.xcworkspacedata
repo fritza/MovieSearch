@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../Searching.playground">
+   </FileRef>
+   <FileRef
       location = "group:/Users/fritza/Documents/Jobs/MovieSearch/MovieSearch/QueryParameters.plist">
    </FileRef>
    <FileRef
