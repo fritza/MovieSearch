@@ -28,15 +28,43 @@ class SearchState {
     }
 }
 
-class ViewController: UIViewController {
+class FormController: UIViewController {
     // TODO: A state variable.
     // Maybe a class object
+    
+    var representedSearch = SearchState()
 
+    @IBOutlet weak var queryTypeSelector: UISegmentedControl!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
 
-
+    @IBAction func unwindFromTypeSelection(sender: UIStoryboardSegue) {
+        guard let pickerController = sender.source as? SelectTypeController else { fatalError() }
+        representedSearch.mediaType = pickerController.representedTypes
+        
+        
+    }
+    
+    // MARK: IBAction
+    
+    @IBAction func queryTypeChanged(_ sender: Any) {
+    }
+    
+    @IBAction func doPickMedia(sender: UIButton) {
+        
+    }
+    
+    let pickMediaSegue = "pick media"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let segID = segue.identifier,
+            segID == pickMediaSegue,
+            let picker = segue.destination as? SelectTypeController {
+            picker.representedTypes = representedSearch.mediaType
+        }
+    }
 }
 

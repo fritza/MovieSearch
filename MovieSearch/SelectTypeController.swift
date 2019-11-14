@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct MovieTypes: OptionSet {
+struct MovieTypes: OptionSet, CustomStringConvertible {
     let rawValue: Int
     init(rawValue: Int) { self.rawValue = rawValue }
     
@@ -16,6 +16,41 @@ struct MovieTypes: OptionSet {
     static let movie    = MovieTypes(rawValue: 1)
     static let series   = MovieTypes(rawValue: 2)
     static let episode  = MovieTypes(rawValue: 4)
+    
+    static let allTypes: [MovieTypes] = [.movie, .series, .episode]
+    
+    static func simpleDescription(for type: MovieTypes) -> String? {
+        switch type {
+        case .none: return "[NONE]"
+        case .movie: return "Movie"
+        case .series: return "Series"
+        case .episode: return "Episode"
+        default: return nil
+        }
+    }
+    
+    var description: String {
+        let result = MovieTypes.allTypes
+            .filter { self == $0 }
+            .compactMap { MovieTypes.simpleDescription(for: $0) }
+            .joined(separator: ", ")
+        return result
+    }
+    
+    /*
+    var description: String {
+        guard self != .none else { return "[none]" }
+        var itemNames: [String] = []
+        
+        for type in MovieTypes.allTypes {
+            if self == type,
+                let typeString = MovieTypes.simpleDescription(for: type) {
+                itemNames.append(typeString)
+            }
+        }
+        return itemNames.joined(separator: ", ")
+    }
+ */
 }
 
 class SelectTypeController: UITableViewController {
