@@ -73,7 +73,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Search" id="QIg-NH-T5j"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="queryTypeSelector" destination="6Is-er-lEu" id="ZZy-it-oxr"/>
+                        <outlet property="mediaTypeSelector" destination="6Is-er-lEu" id="ZZy-it-oxr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

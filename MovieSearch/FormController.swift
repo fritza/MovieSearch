@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FormController.swift
 //  MovieSearch
 //
 //  Created by Fritz Anderson on 11/13/19.
@@ -10,7 +10,7 @@ import UIKit
 
 class SearchState {
     var title: String?
-    var mediaType: MovieTypes = .none
+    var mediaType: MediaType = .movie
     var year: String?
     
     /// Whether the `year` is valid for a query.
@@ -34,18 +34,11 @@ class FormController: UIViewController {
     
     var representedSearch = SearchState()
 
-    @IBOutlet weak var queryTypeSelector: UISegmentedControl!
+    @IBOutlet weak var mediaTypeSelector: UISegmentedControl!
         
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-    }
-
-    @IBAction func unwindFromTypeSelection(sender: UIStoryboardSegue) {
-        guard let pickerController = sender.source as? SelectTypeController else { fatalError() }
-        representedSearch.mediaType = pickerController.representedTypes
-        
         
     }
     
@@ -56,15 +49,6 @@ class FormController: UIViewController {
     
     @IBAction func doPickMedia(sender: UIButton) {
         
-    }
-    
-    let pickMediaSegue = "pick media"
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let segID = segue.identifier,
-            segID == pickMediaSegue,
-            let picker = segue.destination as? SelectTypeController {
-            picker.representedTypes = representedSearch.mediaType
-        }
     }
 }
 
