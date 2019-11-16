@@ -11,27 +11,83 @@ import Foundation
 enum Constants {
     static let apiKey = "ef233be4"
     private static let _baseDataRequest = "http://www.omdbapi.com/?apikey={KEY}&"
-    private static let _basePosterRequest = "http://img.omdbapi.com/?apikey={KEY}&"
+    static var baseRequest: String = {
+        return Constants._baseDataRequest.replacingOccurrences(of: "{KEY}", with: Constants.apiKey)
+    }()
+}
+
+// http://www.omdbapi.com/?apikey=ef233be4&i=tt0114924
+
+/// Aggregate the parameters for an OMDb search.into a dictionary, `URL`, or URL string.
+///
+/// `r` (json)  and `type` (movie) are defaulted as per spec`
+///
+/// The output methods return `nil` if the parameter set isn't complete (`s` for title search, at this writing).
+@dynamicMemberLookup
+struct Query {
+    /// Reject any parameter tags not in this set
+    static let validTags: Set<String> = [
+        "s", "type", "y", "r", "page", "callback", "v"
+    ]
     
-    case dataRequest, posterRequest
+    /// Backing store for the result dictionary
+    ///
+    /// Use this for Alamofire's automatic parameter-setting methods.
+    private (set) var parameters: [String:Any] = ["r": "json", "type": "movie"]
     
-    func baseRequest() -> String {
-        var base: String
-        switch self {
-        case .dataRequest:   base = Constants._baseDataRequest
-        case .posterRequest: base = Constants._basePosterRequest
+    /// Accept apparent property accesses to access the `parameters` backing dictionary.
+    /// - precondition: The “property” name mist be in the `validTags` set.
+    subscript(dynamicMember name: String) -> Any? {
+        get { return parameters[name] }
+        set {
+            precondition(Query.validTags.contains(name))
+            var valueToUse = newValue
+            if let nv = newValue as? NSString {
+                // FIXME: Store with spaces intact.
+                //        Let the `urlString` renderer convert
+                //        space to `+`, but leave the original
+                //        in the backing store.
+                valueToUse = nv.replacingOccurrences(of: " ", with: "+")
+            }
+            parameters[name] = valueToUse
         }
+    }
+    
+    /// Whether the parameters are complete for submission.
+    ///
+    /// For now that means specifying a title, at all.
+    var isComplete: Bool {
+        return self.s != nil
+    }
+    
+    /// The parameters in `Dictionary` form.
+    ///
+    /// `nil` if `isComplete` is `false`
+    var asDictionary: [String:Any]? {
+        return isComplete ? parameters : nil
+    }
+    
+    /// The parameters rendered as an absolute URL path.
+    ///
+    /// `nil` if `isComplete` is `false``
+    var urlString: String? {
+        guard let dictionary = asDictionary else { return nil }
         
-        let finished = base.replacingOccurrences(of: "{KEY}", with: Constants.apiKey)
+        let urlParams = dictionary.map {
+            pair in
+            return "\(pair.0)=\(String(describing: pair.1))"
+        }
+        .joined(separator: "&")
         
-        return finished
+        return Constants.baseRequest + urlParams
+    }
+    
+    /// The parameters as a `URL` for the query
+    ///
+    /// `nil` if `isComplete` is `false``
+    var url: URL? {
+        guard let string = urlString else { return nil }
+        return URL(string:string)
     }
 }
 
-struct QueryParameters {
-    let title: [String:Any]
-    let search: [String:Any]
-}
-
-protocol Query {
-}
