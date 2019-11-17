@@ -21,7 +21,7 @@ class ResultsController: UIViewController {
     }
 }
 
-extension ResultsController: UITableViewDelegate {
+extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     enum CellViewTags: Int {
         case title = 1
         case year

@@ -23,7 +23,12 @@
 		1F945907237F81780034B669 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F94590B2381D05F0034B669 /* ResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590A2381D05F0034B669 /* ResultsController.swift */; };
 		1F94590D2381D0920034B669 /* ItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590C2381D0920034B669 /* ItemController.swift */; };
-		1F9459112381DAE40034B669 /* MoveSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */; };
+		1F9459112381DAE40034B669 /* MovieSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590F2381DAE40034B669 /* MovieSearch.xcdatamodeld */; };
+		1F9459132381EA1B0034B669 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9459122381EA1B0034B669 /* SearchResponse.swift */; };
+		1F9459182381ED030034B669 /* SearchGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9459142381ED030034B669 /* SearchGroup+CoreDataClass.swift */; };
+		1F9459192381ED030034B669 /* SearchGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9459152381ED030034B669 /* SearchGroup+CoreDataProperties.swift */; };
+		1F94591A2381ED030034B669 /* SearchResult+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9459162381ED030034B669 /* SearchResult+CoreDataClass.swift */; };
+		1F94591B2381ED030034B669 /* SearchResult+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9459172381ED030034B669 /* SearchResult+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +65,11 @@
 		1F94590A2381D05F0034B669 /* ResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsController.swift; sourceTree = "<group>"; };
 		1F94590C2381D0920034B669 /* ItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemController.swift; sourceTree = "<group>"; };
 		1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoveSearch.xcdatamodel; sourceTree = "<group>"; };
+		1F9459122381EA1B0034B669 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		1F9459142381ED030034B669 /* SearchGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F9459152381ED030034B669 /* SearchGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F9459162381ED030034B669 /* SearchResult+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResult+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F9459172381ED030034B669 /* SearchResult+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResult+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,7 +144,12 @@
 		1F94590E2381D41C0034B669 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */,
+				1F9459142381ED030034B669 /* SearchGroup+CoreDataClass.swift */,
+				1F9459152381ED030034B669 /* SearchGroup+CoreDataProperties.swift */,
+				1F9459162381ED030034B669 /* SearchResult+CoreDataClass.swift */,
+				1F9459172381ED030034B669 /* SearchResult+CoreDataProperties.swift */,
+				1F94590F2381DAE40034B669 /* MovieSearch.xcdatamodeld */,
+				1F9459122381EA1B0034B669 /* SearchResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -214,10 +229,15 @@
 			files = (
 				1F939B51237CBFED001E53DF /* MediaType.swift in Sources */,
 				1F94590D2381D0920034B669 /* ItemController.swift in Sources */,
-				1F9459112381DAE40034B669 /* MoveSearch.xcdatamodeld in Sources */,
+				1F9459112381DAE40034B669 /* MovieSearch.xcdatamodeld in Sources */,
+				1F94591A2381ED030034B669 /* SearchResult+CoreDataClass.swift in Sources */,
+				1F94591B2381ED030034B669 /* SearchResult+CoreDataProperties.swift in Sources */,
 				1F94590B2381D05F0034B669 /* ResultsController.swift in Sources */,
+				1F9459132381EA1B0034B669 /* SearchResponse.swift in Sources */,
+				1F9459192381ED030034B669 /* SearchGroup+CoreDataProperties.swift in Sources */,
 				1F939B48237C84C0001E53DF /* Query.swift in Sources */,
 				1F939B38237C8412001E53DF /* FormController.swift in Sources */,
+				1F9459182381ED030034B669 /* SearchGroup+CoreDataClass.swift in Sources */,
 				1F939B34237C8412001E53DF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,14 +448,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */ = {
+		1F94590F2381DAE40034B669 /* MovieSearch.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */,
 			);
 			currentVersion = 1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */;
-			name = MoveSearch.xcdatamodeld;
-			path = ../../../MoveSearch.xcdatamodeld;
+			name = MovieSearch.xcdatamodeld;
+			path = ../../../MovieSearch.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
