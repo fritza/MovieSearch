@@ -9,6 +9,7 @@
 import Foundation
 
 enum Constants {
+    static let momBaseName = "MovieSearch"
     static let apiKey = "ef233be4"
     private static let _baseDataRequest = "http://www.omdbapi.com/?apikey={KEY}&"
     static var baseRequest: String = {

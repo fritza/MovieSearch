@@ -23,6 +23,7 @@
 		1F945907237F81780034B669 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F94590B2381D05F0034B669 /* ResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590A2381D05F0034B669 /* ResultsController.swift */; };
 		1F94590D2381D0920034B669 /* ItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590C2381D0920034B669 /* ItemController.swift */; };
+		1F9459112381DAE40034B669 /* MoveSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,7 @@
 		1F945901237F81780034B669 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		1F94590A2381D05F0034B669 /* ResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsController.swift; sourceTree = "<group>"; };
 		1F94590C2381D0920034B669 /* ItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemController.swift; sourceTree = "<group>"; };
+		1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoveSearch.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				1F939B47237C84C0001E53DF /* Query.swift */,
+				1F94590E2381D41C0034B669 /* Model */,
 				1F939B50237CBFED001E53DF /* MediaType.swift */,
 				1F939B4E237C9719001E53DF /* QueryParameters.plist */,
 				1F939B33237C8412001E53DF /* AppDelegate.swift */,
@@ -126,6 +129,14 @@
 				1F939B37237C8412001E53DF /* FormController.swift */,
 			);
 			path = "View controllers";
+			sourceTree = "<group>";
+		};
+		1F94590E2381D41C0034B669 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +214,7 @@
 			files = (
 				1F939B51237CBFED001E53DF /* MediaType.swift in Sources */,
 				1F94590D2381D0920034B669 /* ItemController.swift in Sources */,
+				1F9459112381DAE40034B669 /* MoveSearch.xcdatamodeld in Sources */,
 				1F94590B2381D05F0034B669 /* ResultsController.swift in Sources */,
 				1F939B48237C84C0001E53DF /* Query.swift in Sources */,
 				1F939B38237C8412001E53DF /* FormController.swift in Sources */,
@@ -414,6 +426,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1F94590F2381DAE40034B669 /* MoveSearch.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */,
+			);
+			currentVersion = 1F9459102381DAE40034B669 /* MoveSearch.xcdatamodel */;
+			name = MoveSearch.xcdatamodeld;
+			path = ../../../MoveSearch.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1F939B28237C8412001E53DF /* Project object */;
 }
