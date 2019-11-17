@@ -17,10 +17,10 @@ extension SearchResult {
         return NSFetchRequest<SearchResult>(entityName: "SearchResult")
     }
 
-    @NSManaged public var title: String?
+    @NSManaged public var title: String
     @NSManaged public var year: Int64
     @NSManaged public var imdbID: String?
-    @NSManaged public var type: String?
+    @NSManaged public var type: String
     @NSManaged public var posterURL: URL?
     @NSManaged public var searchGroups: NSSet?
 

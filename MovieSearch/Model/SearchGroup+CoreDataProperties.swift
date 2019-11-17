@@ -17,9 +17,9 @@ extension SearchGroup {
         return NSFetchRequest<SearchGroup>(entityName: "SearchGroup")
     }
 
-    @NSManaged public var titleFragment: String?
+    @NSManaged public var titleFragment: String
     @NSManaged public var year: Int64
-    @NSManaged public var movieType: String?
+    @NSManaged public var movieType: String
     @NSManaged public var allResults: NSSet?
 
 }
