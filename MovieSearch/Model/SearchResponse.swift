@@ -27,6 +27,10 @@ struct SearchElement: Decodable {
     var year: Int {
         return numberOrZero(from: _year)
     }
+    var posterURL: URL? {
+        guard !posterURLString.isEmpty && posterURLString != "N/A" else { return nil }
+        return URL(string: posterURLString)
+    }
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"
