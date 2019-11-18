@@ -98,15 +98,6 @@ class FormController: UIViewController {
         representedSearch.mediaType = MediaType(rawValue: sender.selectedSegmentIndex)!
     }
     
-    @IBAction func searchTapped(_ sender: Any) {
-        guard let q = representedSearch.query,
-            let urlString = q.urlString else {
-                print(#function, "could not produce a URL string")
-                return
-        }
-//        print(#function, "- resulting URL is", urlString)
-    }
-    
     @IBAction func clearTapped(_ sender: Any) {
         resetViews()
     }

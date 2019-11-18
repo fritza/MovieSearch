@@ -12,12 +12,12 @@
 		1F44DBE223832635004DF9D3 /* LargeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44DBE123832635004DF9D3 /* LargeResultCell.swift */; };
 		1F44DBE423832B83004DF9D3 /* LargeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */; };
 		1F44DBE723834566004DF9D3 /* MovieSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F44DBE523834566004DF9D3 /* MovieSearch.xcdatamodeld */; };
-		1F44DBE82383488B004DF9D3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; };
-		1F44DBE92383488B004DF9D3 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F44DBEB238348A2004DF9D3 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; };
-		1F44DBEC238348A2004DF9D3 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F44DBED238348B7004DF9D3 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; };
-		1F44DBEE238348B7004DF9D3 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F665CBE2383557B0082A824 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; };
+		1F665CBF2383557B0082A824 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F665CC02383557B0082A824 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; };
+		1F665CC12383557B0082A824 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F665CC22383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; };
+		1F665CC32383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F939B34237C8412001E53DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B33237C8412001E53DF /* AppDelegate.swift */; };
 		1F939B38237C8412001E53DF /* FormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B37237C8412001E53DF /* FormController.swift */; };
 		1F939B3B237C8412001E53DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F939B39237C8412001E53DF /* Main.storyboard */; };
@@ -35,15 +35,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1F44DBEA2383488B004DF9D3 /* Embed Frameworks */ = {
+		1F665CC42383557B0082A824 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1F44DBE92383488B004DF9D3 /* Alamofire.framework in Embed Frameworks */,
-				1F44DBEC238348A2004DF9D3 /* AlamofireImage.framework in Embed Frameworks */,
-				1F44DBEE238348B7004DF9D3 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */,
+				1F665CBF2383557B0082A824 /* Alamofire.framework in Embed Frameworks */,
+				1F665CC12383557B0082A824 /* AlamofireImage.framework in Embed Frameworks */,
+				1F665CC32383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +56,8 @@
 		1F44DBE123832635004DF9D3 /* LargeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeResultCell.swift; sourceTree = "<group>"; };
 		1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LargeResultCell.xib; path = ../../../LargeResultCell.xib; sourceTree = "<group>"; };
 		1F44DBE623834566004DF9D3 /* MoveSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MoveSearch.xcdatamodel; sourceTree = "<group>"; };
+		1F665CB0238352470082A824 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		1F665CB1238352470082A824 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/Mac/AlamofireImage.framework; sourceTree = "<group>"; };
 		1F939B30237C8412001E53DF /* MovieSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F939B33237C8412001E53DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F939B37237C8412001E53DF /* FormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormController.swift; sourceTree = "<group>"; };
@@ -83,9 +85,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F44DBE82383488B004DF9D3 /* Alamofire.framework in Frameworks */,
-				1F44DBEB238348A2004DF9D3 /* AlamofireImage.framework in Frameworks */,
-				1F44DBED238348B7004DF9D3 /* AlamofireNetworkActivityIndicator.framework in Frameworks */,
+				1F665CBE2383557B0082A824 /* Alamofire.framework in Frameworks */,
+				1F665CC02383557B0082A824 /* AlamofireImage.framework in Frameworks */,
+				1F665CC22383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +135,8 @@
 			children = (
 				1F945901237F81780034B669 /* Alamofire.framework */,
 				1F9458FF237F81780034B669 /* AlamofireImage.framework */,
+				1F665CB0238352470082A824 /* Alamofire.framework */,
+				1F665CB1238352470082A824 /* AlamofireImage.framework */,
 				1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */,
 			);
 			name = Frameworks;
@@ -173,7 +177,7 @@
 				1F939B2C237C8412001E53DF /* Sources */,
 				1F939B2D237C8412001E53DF /* Frameworks */,
 				1F939B2E237C8412001E53DF /* Resources */,
-				1F44DBEA2383488B004DF9D3 /* Embed Frameworks */,
+				1F665CC42383557B0082A824 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -400,6 +404,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = MovieSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -425,6 +430,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = MovieSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
