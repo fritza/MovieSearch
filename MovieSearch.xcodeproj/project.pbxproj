@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,11 +13,8 @@
 		1F44DBE423832B83004DF9D3 /* LargeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */; };
 		1F44DBE723834566004DF9D3 /* MovieSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F44DBE523834566004DF9D3 /* MovieSearch.xcdatamodeld */; };
 		1F665CBE2383557B0082A824 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; };
-		1F665CBF2383557B0082A824 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945901237F81780034B669 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F665CC02383557B0082A824 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; };
-		1F665CC12383557B0082A824 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9458FF237F81780034B669 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F665CC22383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; };
-		1F665CC32383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F945900237F81780034B669 /* AlamofireNetworkActivityIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F939B34237C8412001E53DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B33237C8412001E53DF /* AppDelegate.swift */; };
 		1F939B38237C8412001E53DF /* FormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F939B37237C8412001E53DF /* FormController.swift */; };
 		1F939B3B237C8412001E53DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F939B39237C8412001E53DF /* Main.storyboard */; };
@@ -35,23 +32,8 @@
 		FF4FFE697D99EE71608ED515 /* Pods_MovieSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9020BEE7B3EA400540DD963 /* Pods_MovieSearch.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		1F665CC42383557B0082A824 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				1F665CBF2383557B0082A824 /* Alamofire.framework in Embed Frameworks */,
-				1F665CC12383557B0082A824 /* AlamofireImage.framework in Embed Frameworks */,
-				1F665CC32383557B0082A824 /* AlamofireNetworkActivityIndicator.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		1F10B3DE23835D9C0093FC5E /* MovieSearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieSearch.entitlements; sourceTree = "<group>"; };
 		1F44DBBD23831321004DF9D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1F44DBDF238319D5004DF9D3 /* CG+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CG+extensions.swift"; path = "../../CG+extensions.swift"; sourceTree = "<group>"; };
 		1F44DBE123832635004DF9D3 /* LargeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeResultCell.swift; sourceTree = "<group>"; };
@@ -121,6 +103,7 @@
 		1F939B32237C8412001E53DF /* MovieSearch */ = {
 			isa = PBXGroup;
 			children = (
+				1F10B3DE23835D9C0093FC5E /* MovieSearch.entitlements */,
 				1F939B47237C84C0001E53DF /* Query.swift */,
 				1F44DBDF238319D5004DF9D3 /* CG+extensions.swift */,
 				1F94590E2381D41C0034B669 /* Model */,
@@ -180,7 +163,6 @@
 				F2385101096B71A97DD9E3DE /* Pods-MovieSearch.debug.xcconfig */,
 				F402E74D388550E3E3703ACC /* Pods-MovieSearch.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -195,7 +177,6 @@
 				1F939B2C237C8412001E53DF /* Sources */,
 				1F939B2D237C8412001E53DF /* Frameworks */,
 				1F939B2E237C8412001E53DF /* Resources */,
-				1F665CC42383557B0082A824 /* Embed Frameworks */,
 				8C1EFC6194A8764213C78691 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -460,6 +441,7 @@
 			baseConfigurationReference = F2385101096B71A97DD9E3DE /* Pods-MovieSearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MovieSearch/MovieSearch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = J2E8MMY7GM;
@@ -487,6 +469,7 @@
 			baseConfigurationReference = F402E74D388550E3E3703ACC /* Pods-MovieSearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MovieSearch/MovieSearch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = J2E8MMY7GM;
