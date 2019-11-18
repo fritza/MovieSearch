@@ -130,14 +130,11 @@ class MovieLoader {
     
     var searchResults = Array<SearchElement>()
     func append(results: [SearchElement]) {
-        // This is probably paranoid, but I want to be sure.
-        DispatchQueue.global(qos: .background).async {
-            self.searchResults += results
-            NotificationCenter.default
-                .post(name: MovieResultsArrived, object: self,
-                      userInfo: [resultCountKey: self.initialCount])
-            // Clients are responsible for directing their UI actions to the main opersation queue
-        }
+        self.searchResults += results
+        NotificationCenter.default
+            .post(name: MovieResultsArrived, object: self,
+                  userInfo: [resultCountKey: self.initialCount])
+        // Clients are responsible for directing their UI actions to the main opersation queue
     }
     
     func clear() {
@@ -167,7 +164,7 @@ class MovieLoader {
         // TODO: AF takes care of timeouts. Do I need ot set a custom one?
         
         let urlPageN = query.url(page: number)
-        print("URL for page", number, "is", urlPageN ?? "NONE")
+//        print("URL for page", number, "is", urlPageN ?? "NONE")
         Alamofire.request(urlPageN!)
             .responseData { (response) in
                 switch response.result {
@@ -198,10 +195,16 @@ class MovieLoader {
                         // … especially if you try to make everything non-optional.
                         self.error = error
                         self.totalCount = 0 // Can't hurt to set an additional condition to stop the cycle.
+                        #if false
                         NotificationCenter.default
                             .post(name: MovieFetchFailed,
                                   object: self,
                                   userInfo: [fetchErrorKey: error])
+                        #else
+                        NotificationCenter.default
+                            .post(name: MovieFetchCompleted,
+                                  object: self)
+                        #endif
                     }
                     
                     /* ========================================================================================== */

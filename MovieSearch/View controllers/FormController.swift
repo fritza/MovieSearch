@@ -104,7 +104,7 @@ class FormController: UIViewController {
                 print(#function, "could not produce a URL string")
                 return
         }
-        print(#function, "- resulting URL is", urlString)
+//        print(#function, "- resulting URL is", urlString)
     }
     
     @IBAction func clearTapped(_ sender: Any) {

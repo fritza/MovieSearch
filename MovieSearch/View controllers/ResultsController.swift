@@ -20,6 +20,20 @@ class ResultsController: UIViewController {
         }
     }
     
+    #if DEBUG
+    var listOfURLs: String {
+        let listing = contentItems
+            .map { $0.posterURLString }
+            .sorted()
+            .joined(separator: "\n")
+        return listing
+    }
+    
+    func printURLs() {
+       // print(listOfURLs)
+    }
+    #endif
+    
     var loader: MovieLoader?
     
     var representedQuery: Query? {
@@ -36,6 +50,9 @@ class ResultsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNotifications()
+        
+        let nib = UINib(nibName: "LargeResultCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: LargeResultCell.cellIdentifier)
         
         // FIXME: Orphan notification handlers
         // On view did disappear: Remove the handlers
@@ -58,6 +75,11 @@ extension ResultsController {
                     fatalError()
                 }
                 self.contentItems = loader.searchResults
+                    .sorted { (lhs, rhs) -> Bool in
+                        if lhs.year > rhs.year { return true }
+                        if lhs.year == rhs.year && lhs.title < rhs.title { return true }
+                        return false
+                    }
                 self.title = "\(loader.initialCount) results"
         }
         
@@ -67,6 +89,12 @@ extension ResultsController {
                     fatalError()
                 }
 
+                #if DEBUG
+                self.printURLs()
+                #endif
+                
+                self.title = "\(self.contentItems.count) results"
+                
                 if loader.initialCount == 0 {
                     let alert = UIAlertController(title: "Done", message: "OMDb has no matching movies for you.", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "OK", style: .default,
@@ -150,38 +178,14 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView
-            .dequeueReusableCell(
-                withIdentifier: ResultsController.cellIdentifier,
-                for: indexPath)
-        
-        func fillLLabel(_ tag: CellViewTags, with str: String) {
-            assert(CellViewTags.labelTags.contains(tag),
-                   "Attempt to set text (\(str)) of a non-label subview (\(tag.rawValue))")
-            guard let label = cell.viewWithTag(tag.rawValue) as? UILabel else { preconditionFailure() }
-            label.text = str
-        }
-        
         let item = contentItems[indexPath.row]
-
-        fillLLabel(.title, with: item.title)
-        fillLLabel(.year, with: item._year)
-        fillLLabel(.rating, with: item.imdbID)
-        fillLLabel(.helpfulInfo, with: "this space for rent.")
         
-        if let imageView = cell.viewWithTag(CellViewTags.thumbnail.rawValue) as? UIImageView,
-            let url = item.posterURL {
-            let filter = AspectScaledToFitSizeFilter(size: imageView.frame.size)
-            
-            imageView.af_setImage(
-                withURL: url,
-                // FIXME: Magic string
-                placeholderImage: UIImage(named: "missing film"),
-                filter: filter
-            )
-        }
-        //        let image = UIImage(
-        
+        let tvc = tableView
+            .dequeueReusableCell(
+                withIdentifier: LargeResultCell.cellIdentifier,
+                for: indexPath)
+        let cell = tvc as! LargeResultCell
+        cell.representedSearchElement = item
         return cell
     }
     
