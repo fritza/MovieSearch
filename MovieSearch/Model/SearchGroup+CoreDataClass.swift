@@ -14,6 +14,7 @@ import CoreData
 public class SearchGroup: NSManagedObject {
     static let className = "SearchGroup"
     
+    // MARK: Inertion
     /// Create a `SearchGroup` from the corresponding `Query`
     /// - Parameter query: The `Query` actually sent to the OMDb server.
     static func new(from query: Query) -> SearchGroup {
@@ -34,6 +35,7 @@ public class SearchGroup: NSManagedObject {
         return retval
     }
     
+    // MARK: Result insertion
     /// Relate `SearchResult` managed objects to this query.
     /// - Parameter results: Array of `SearchResult`s to insert in my set of results.
     func addResults(_ results: [SearchResult]) {

@@ -14,6 +14,7 @@ import CoreData
 public class SearchResult: NSManagedObject {
     static let className = "SearchResult"
     
+    // MARK: Insertion
     /// Insert a `SearchResult` constructed from a per-movie record returned by OMDb
 ///
     /// If a `SearchResult` managed object already exists, as determined by `imdbID`, return the existing object.
@@ -45,6 +46,12 @@ public class SearchResult: NSManagedObject {
         return retval
     }
     
+    // MARK: Equatable
+    static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
+        return (lhs.imdbID == nil || rhs.imdbID == nil) ? false : lhs.imdbID! == rhs.imdbID!
+    }
+    
+    // MARK: Duplicate control
     /// Whether a `SearchResult` is already in the store, as determined by the `imdbID`.`
     /// - Parameter imdbID: the IMDB identifier to check
     /// - note: Deprecated. Probably.
