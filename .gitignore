@@ -2,3 +2,5 @@ Cartfile.resolved
 art
 Carthage
 *.zip
+Pods
+Podfile.lock

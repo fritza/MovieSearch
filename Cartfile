@@ -1,3 +1,0 @@
-github "Alamofire/Alamofire" # ~> 5.0.0-rc.3
-github "Alamofire/AlamofireImage" ~> 3.5
-github "Alamofire/AlamofireNetworkActivityIndicator" ~> 2.4.0
