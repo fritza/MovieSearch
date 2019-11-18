@@ -120,10 +120,12 @@ let MovieFetchCompleted = NSNotification.Name("movie fetch completed")
 let MovieResultsCleared = NSNotification.Name("movie results cleared")
 let MovieFetchFailed = NSNotification.Name("movie fetch failed")
 let fetchErrorKey = "fetch error key"
+let resultCountKey = "result count"
 
 class MovieLoader {
     var query: Query
     var totalCount: Int
+    var initialCount: Int
     var error: Error?
     
     var searchResults = Array<SearchElement>()
@@ -132,7 +134,8 @@ class MovieLoader {
         DispatchQueue.global(qos: .background).async {
             self.searchResults += results
             NotificationCenter.default
-                .post(name: MovieResultsArrived, object: self)
+                .post(name: MovieResultsArrived, object: self,
+                      userInfo: [resultCountKey: self.initialCount])
             // Clients are responsible for directing their UI actions to the main opersation queue
         }
     }
@@ -142,6 +145,7 @@ class MovieLoader {
             self.searchResults = []
             self.error = nil
             self.totalCount = 0
+            self.initialCount = 0
             NotificationCenter.default
                 .post(name: MovieResultsCleared, object: self)
             // Clients are responsible for directing their UI actions to the main opersation queue
@@ -153,11 +157,15 @@ class MovieLoader {
     init(query: Query) {
         self.query = query
         self.totalCount = 0
+        self.initialCount = 0
     }
     
+    /// Ask the DB for the `number`th page of search results.
+    /// - Parameter number: The ordinal in a series of 10-line lists of movies.
     func request(page number: Int) {
         // TODO: Keep some kind of token for cancelling fetches.
-        //       let req =
+        // TODO: AF takes care of timeouts. Do I need ot set a custom one?
+        
         let urlPageN = query.url(page: number)
         print("URL for page", number, "is", urlPageN ?? "NONE")
         Alamofire.request(urlPageN!)
@@ -165,22 +173,29 @@ class MovieLoader {
                 switch response.result {
                 case .success(let data):
                     do {
+                        // Got data. Decode it.
                         let result = try MovieLoader.decoder.decode(SearchResponse.self, from: data)
                         self.append(results: result.search)
+                        // Make totalCount the grand total less this batch
                         if number == 1 {
                             self.totalCount = result.totalResults
+                            self.initialCount = result.totalResults
                         }
                         self.totalCount -= result.search.count
                         if self.totalCount > 0 && result.search.count > 0 {
                             self.request(page: number+1)
                         }
                         else {
+                            // No more? Tell clients we're done.
                             NotificationCenter.default
                                 .post(name: MovieFetchCompleted,
                                       object: self)
                         }
                     }
                     catch {
+                        // Decoding didn't work.
+                        // This may be to be expected, as JSONDecoder is fragile against unexpected JSON.
+                        // … especially if you try to make everything non-optional.
                         self.error = error
                         self.totalCount = 0 // Can't hurt to set an additional condition to stop the cycle.
                         NotificationCenter.default
@@ -189,11 +204,12 @@ class MovieLoader {
                                   userInfo: [fetchErrorKey: error])
                     }
                     
+                    /* ========================================================================================== */
+                    
                 case .failure(let error):
-                    // Post an alert
-                    // end the chain
                     self.error = error
                     self.totalCount = 0 // Can't hurt to set an additional condition to stop the cycle.
+                    // How the UI tells the user is no business of Foundation-only code
                     NotificationCenter.default
                         .post(name: MovieFetchFailed,
                               object: self,
