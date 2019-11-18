@@ -9,47 +9,145 @@
 import UIKit
 import Alamofire
 
+// MARK: - SearchState
 class SearchState {
-    var title: String?
+    var title: String = ""
     var mediaType: MediaType = .movie
-    var year: String?
+    var year: String = ""
     
     /// Whether the `year` is valid for a query.
     ///
     /// - returns: `true` if the year is absent or parses into an `Int` between 1850 and 2200.
     var yearIsValid: Bool {
         // Unselected year is valid
-        guard let year = year else { return true }
+        if year.isEmpty { return true }
         // FIXME: Cache the formatter.
-        let formatter = NumberFormatter()
-        guard let decoded = formatter.number(from: year) else {
+        guard let decoded = Constants.plainNumberFormatter.number(from: year) else {
             return false
         }
         return (1850...2200).contains(decoded.intValue)
     }
+    
+    var canAllowSearching: Bool {
+        return yearIsValid && title.count > 3
+    }
+    
+    func reset() {
+        title = ""
+        mediaType = .movie
+        year = "2000"
+    }
+    
+    var query: Query? {
+        guard canAllowSearching else { return nil }
+        var retval = Query()
+        (retval.s, retval.y, retval.type) = (title, year, mediaType.description)
+        return retval
+    }
+    
+    var queryURL: URL? {
+        return query?.url
+    }
 }
 
+// MARK: - FormController
 class FormController: UIViewController {
     // TODO: A state variable.
     // Maybe a class object
     
+
+    // MARK: IBOutlet
+    @IBOutlet weak var mediaTypeSelector: UISegmentedControl!
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var yearField: UITextField!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+    
     var representedSearch = SearchState()
 
-    @IBOutlet weak var mediaTypeSelector: UISegmentedControl!
-        
+    // MARK: View initialization
+    
+    private func enableSearchButton() {
+        searchButton.isEnabled = representedSearch.canAllowSearching
+    }
+    
+    private func resetViews() {
+        representedSearch.reset()
+        refreshViews()
+    }
+    
+    private func refreshViews() {
+        // No views yet? Don't refresh them.
+        if mediaTypeSelector == nil { return }
+        titleField.text = representedSearch.title
+        yearField.text = representedSearch.year
+        mediaTypeSelector.selectedSegmentIndex = representedSearch.mediaType.rawValue
+        enableSearchButton()
+    }
+            
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        refreshViews()
     }
     
     // MARK: IBAction
     
-    @IBAction func queryTypeChanged(_ sender: Any) {
+    @IBAction func queryTypeChanged(_ sender: UISegmentedControl) {
+        representedSearch.mediaType = MediaType(rawValue: sender.selectedSegmentIndex)!
     }
     
-    @IBAction func doPickMedia(sender: UIButton) {
+    @IBAction func searchTapped(_ sender: Any) {
+        guard let q = representedSearch.query,
+            let urlString = q.urlString else {
+                print(#function, "could not produce a URL string")
+                return
+        }
+        print(#function, "- resulting URL is", urlString)
+    }
+    
+    @IBAction func clearTapped(_ sender: Any) {
+        resetViews()
+    }
+    
+}
+
+// MARK: - Text field delegate
+extension FormController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        if textField == titleField {
+            return titleFieldShouldChange(range: range, replacementString: string)
+        }
+        else if textField == yearField {
+            return yearFieldShouldChange(range: range, replacementString: string)
+        }
+        else { fatalError("Got a delegate call from an unknown field") }
+    }
+    
+    func titleFieldShouldChange(range: NSRange, replacementString string: String) -> Bool {
+        representedSearch.title = titleField
+            .contentReplacing(range: range, with: string)
+        enableSearchButton()
+        return true
+    }
+    
+    func yearFieldShouldChange(range: NSRange,
+                               replacementString string: String) -> Bool {
+        representedSearch.year = yearField
+            .contentReplacing(range: range, with: string)
+        enableSearchButton()
+        return true
+    }
+}
+
+// MARK: - UITextField
+extension UITextField {
+    func contentReplacing(range: NSRange, with str: String) -> String {
+        let content = (text ?? "") as NSString
+        let newContent = content.replacingCharacters(in: range, with: str)
+        return newContent
     }
 }
 
