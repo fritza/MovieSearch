@@ -7,35 +7,16 @@
 //
 
 import UIKit
+import AlamofireImage
+
+
 
 class ResultsController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var content: SearchResponse? {
-        didSet {
-            DispatchQueue.main.async {
-                if let items = self.content?.search {
-                    self.contentItems = items
-                }
-                else {
-                    self.contentItems = []
-                }
-            }
-        }
-    }
-    
     var contentItems: [SearchElement] = [] {
         didSet {
             self.tableView?.reloadData()
-        }
-    }
-    
-    var representedURL: URL! {
-        didSet {
-            content = nil
-            if let url = representedURL {
-                reloadFrom(url: url)
-            }
         }
     }
     
@@ -55,41 +36,14 @@ class ResultsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNotifications()
+        
         // FIXME: Orphan notification handlers
         // On view did disappear: Remove the handlers
         // On did appear, reenable the handers _and_ ask the loader
         
-        
         self.tableView.reloadData()
-
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    
-    struct State {
-        var request: URLRequest
-        var session: URLSession
-        var url:     URL
-        var task:    URLSessionDataTask!
-        
-        init(url: URL) {
-            self.url = url
-            let session = URLSession(configuration: .default)
-            self.session = session
-            self.request = URLRequest(url: url)
-        }
-        
-        mutating func execute(closure: @escaping (Data?, URLResponse?, Error?) -> Void) {
-            self.task = session.dataTask(with: url, completionHandler: closure)
-            self.task.resume()
-        }
-    }
-    var currentState: State!
     var notificationHandlers: [NSObjectProtocol] = []
 
 }
@@ -104,11 +58,16 @@ extension ResultsController {
                     fatalError()
                 }
                 self.contentItems = loader.searchResults
+                self.title = "\(loader.initialCount) results"
         }
         
         let completed = NotificationCenter.default
             .addObserver(forName: MovieFetchCompleted, object: nil, queue: .main) { notice in
-                if self.contentItems.count == 0 {
+                guard let loader = notice.object as? MovieLoader else {
+                    fatalError()
+                }
+
+                if loader.initialCount == 0 {
                     let alert = UIAlertController(title: "Done", message: "OMDb has no matching movies for you.", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "OK", style: .default,
                                            handler: nil)
@@ -161,16 +120,18 @@ extension ResultsController {
 
 // MARK: - Table view injections
 extension ResultsController: UITableViewDelegate, UITableViewDataSource {
-    static let cellIdentifier = "simpleListingCell"
+//    static let cellIdentifier = "simpleListingCell"
+    static let cellIdentifier = "bigPosterListingCell"
     
     enum CellViewTags: Int {
         case title = 1
         case year
+        case rating
         case helpfulInfo
         case thumbnail = 100
         
         static var labelTags: Set<CellViewTags> = {
-            return Set([.title, .year, .helpfulInfo])
+            return Set([.title, .year, .rating, .helpfulInfo])
         }()
     }
     
@@ -178,7 +139,7 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return contentItems.isEmpty ? 0 : 1 // (content == nil) ? 0 : 1
+        return contentItems.isEmpty ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,61 +155,37 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: ResultsController.cellIdentifier,
                 for: indexPath)
         
+        func fillLLabel(_ tag: CellViewTags, with str: String) {
+            assert(CellViewTags.labelTags.contains(tag),
+                   "Attempt to set text (\(str)) of a non-label subview (\(tag.rawValue))")
+            guard let label = cell.viewWithTag(tag.rawValue) as? UILabel else { preconditionFailure() }
+            label.text = str
+        }
+        
         let item = contentItems[indexPath.row]
-        cell.textLabel!.text = item.title
-        cell.detailTextLabel!.text = item._year
+
+        fillLLabel(.title, with: item.title)
+        fillLLabel(.year, with: item._year)
+        fillLLabel(.rating, with: item.imdbID)
+        fillLLabel(.helpfulInfo, with: "this space for rent.")
+        
+        if let imageView = cell.viewWithTag(CellViewTags.thumbnail.rawValue) as? UIImageView,
+            let url = item.posterURL {
+            let filter = AspectScaledToFitSizeFilter(size: imageView.frame.size)
+            
+            imageView.af_setImage(
+                withURL: url,
+                // FIXME: Magic string
+                placeholderImage: UIImage(named: "missing film"),
+                filter: filter
+            )
+        }
+        //        let image = UIImage(
         
         return cell
     }
     
-    func fillLLabel(_ tag: CellViewTags, with str: String) {
-        assert(CellViewTags.labelTags.contains(tag),
-               "Attempt to set text (\(str)) of a non-label subview (\(tag.rawValue))")
-        guard let label = view.viewWithTag(tag.rawValue) as? UILabel else { preconditionFailure() }
-        label.text = str
-    }
 }
-
-
-extension ResultsController {
-    func reloadFrom(url: URL) {
-        self.currentState = State(url: url)
-        self.currentState.execute { (data, response, error) in
-            if let error = error {
-                // put up an alert or something
-                print(#function, "- error:", error)
-                return
-            }
-            if let data = data {
-                let decoder = JSONDecoder()
-                do {
-                    self.content = try decoder.decode(SearchResponse.self, from: data)
-                }
-                catch {
-                    print("Didn't decode:", error)
-                }
-            }
-        }
-    }
-}
-
-
-/*
- Register the current batch.
- Perform the #1 fetch. That's your first (maybe only) batch of items.
- This was page 1
- Capture the total count
- 
- Loop
-    A
-    subtract the size of the last batch from the total
-    if you're still > 0,
-        increment the page
-        refresh the
- 
- 
- */
-
 
 /*
  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

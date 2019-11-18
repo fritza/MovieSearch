@@ -126,11 +126,9 @@ class FormController: UIViewController {
             else {
                 fatalError(#function + " Segue: \(segue.identifier!) was for the wrong destination type.")
             }
-            guard let query = representedSearch.query,
-                let url = query.url else {
+            guard let query = representedSearch.query else {
                     fatalError(#function + " Segue: \(segue.identifier!) was hit without a valid query URL.")
             }
-//            dest.representedURL = url
             dest.representedQuery = query
         }
     }

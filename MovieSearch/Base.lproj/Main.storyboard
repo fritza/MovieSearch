@@ -189,6 +189,63 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="bigPosterListingCell" id="vgD-hh-bN1">
+                                        <rect key="frame" x="0.0" y="83.5" width="414" height="102.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vgD-hh-bN1" id="L2B-qG-WQm">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="102.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="missing film" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-IM-x7G">
+                                                    <rect key="frame" x="0.0" y="2" width="72" height="98.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="72" id="ZGw-Nq-2Ew"/>
+                                                        <constraint firstAttribute="height" constant="98" id="c1y-bc-0PG"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some are not." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="wu4-WI-pSc">
+                                                    <rect key="frame" x="80" y="11" width="283" height="26.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9p-EF-tPk">
+                                                    <rect key="frame" x="80" y="41" width="32" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*****" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paj-3G-Xd5">
+                                                    <rect key="frame" x="327.5" y="41" width="35.5" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8o4-Zs-IYM">
+                                                    <rect key="frame" x="80" y="64" width="283" height="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CkD-IM-x7G" firstAttribute="top" secondItem="L2B-qG-WQm" secondAttribute="top" constant="2" id="1M9-7b-gJE"/>
+                                                <constraint firstItem="8o4-Zs-IYM" firstAttribute="trailing" secondItem="wu4-WI-pSc" secondAttribute="trailing" id="GEG-RB-cm6"/>
+                                                <constraint firstItem="Paj-3G-Xd5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="G9p-EF-tPk" secondAttribute="trailing" constant="8" symbolic="YES" id="GzV-6e-xMI"/>
+                                                <constraint firstAttribute="bottom" secondItem="CkD-IM-x7G" secondAttribute="bottom" constant="2" id="S5f-eX-Eoc"/>
+                                                <constraint firstItem="wu4-WI-pSc" firstAttribute="leading" secondItem="CkD-IM-x7G" secondAttribute="trailing" constant="8" symbolic="YES" id="Su7-3w-eZo"/>
+                                                <constraint firstItem="G9p-EF-tPk" firstAttribute="firstBaseline" secondItem="wu4-WI-pSc" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="V54-fA-pdG"/>
+                                                <constraint firstItem="8o4-Zs-IYM" firstAttribute="leading" secondItem="wu4-WI-pSc" secondAttribute="leading" id="a10-KW-XzC"/>
+                                                <constraint firstItem="G9p-EF-tPk" firstAttribute="leading" secondItem="wu4-WI-pSc" secondAttribute="leading" id="eFV-3Z-cnX"/>
+                                                <constraint firstItem="Paj-3G-Xd5" firstAttribute="firstBaseline" secondItem="G9p-EF-tPk" secondAttribute="firstBaseline" id="fGO-hr-pP5"/>
+                                                <constraint firstItem="Paj-3G-Xd5" firstAttribute="trailing" secondItem="wu4-WI-pSc" secondAttribute="trailing" id="gCz-Zj-bPj"/>
+                                                <constraint firstItem="CkD-IM-x7G" firstAttribute="leading" secondItem="L2B-qG-WQm" secondAttribute="leading" id="gdp-iI-GkY"/>
+                                                <constraint firstItem="8o4-Zs-IYM" firstAttribute="firstBaseline" secondItem="G9p-EF-tPk" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="h2t-M8-lXr"/>
+                                                <constraint firstAttribute="trailing" secondItem="wu4-WI-pSc" secondAttribute="trailing" constant="20" symbolic="YES" id="okQ-QG-gqA"/>
+                                                <constraint firstItem="wu4-WI-pSc" firstAttribute="top" secondItem="L2B-qG-WQm" secondAttribute="topMargin" id="zdf-en-bDQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BEc-ua-0fB" id="cHb-Yd-EZg"/>
@@ -215,4 +272,7 @@
             <point key="canvasLocation" x="981" y="147"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="missing film" width="141" height="141"/>
+    </resources>
 </document>
