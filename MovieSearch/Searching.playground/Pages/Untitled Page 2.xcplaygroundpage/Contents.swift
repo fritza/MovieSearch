@@ -152,6 +152,7 @@ q.isComplete
 q.r = "json"
 
 let url = q.url!
+print("\n", url, "\n")
 let request = URLRequest(url: url)
 let session = URLSession(configuration: .default)
 let task = session.dataTask(with: url) { (data, response, error) in

@@ -15,6 +15,10 @@ enum Constants {
     static var baseRequest: String = {
         return Constants._baseDataRequest.replacingOccurrences(of: "{KEY}", with: Constants.apiKey)
     }()
+    
+    static var plainNumberFormatter: NumberFormatter = {
+        return NumberFormatter()
+    }()
 }
 
 // http://www.omdbapi.com/?apikey=ef233be4&i=tt0114924
