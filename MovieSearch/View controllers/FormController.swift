@@ -111,6 +111,28 @@ class FormController: UIViewController {
         resetViews()
     }
     
+    enum Segues: String {
+        case toResults = "show results table"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier,
+            let segueType = Segues(rawValue: id) else {
+                fatalError(#function + " Unexpected segue: \(segue.identifier ?? "NONE")")
+        }
+        switch segueType {
+        case .toResults:
+            guard let dest = segue.destination as? ResultsController
+            else {
+                fatalError(#function + " Segue: \(segue.identifier!) was for the wrong destination type.")
+            }
+            guard let query = representedSearch.query,
+                let url = query.url else {
+                    fatalError(#function + " Segue: \(segue.identifier!) was hit without a valid query URL.")
+            }
+            dest.representedURL = url
+        }
+    }
 }
 
 // MARK: - Text field delegate
@@ -126,15 +148,32 @@ extension FormController: UITextFieldDelegate {
         else { fatalError("Got a delegate call from an unknown field") }
     }
     
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == titleField {
+            representedSearch.title = ""
+        }
+        else if textField == yearField {
+            representedSearch.year = ""
+        }
+        else { fatalError("Got a delegate call from an unknown field") }
+        enableSearchButton()
+
+        return true
+    }
+    
     func titleFieldShouldChange(range: NSRange, replacementString string: String) -> Bool {
         representedSearch.title = titleField
             .contentReplacing(range: range, with: string)
-        enableSearchButton()
+        enableSearchButton()    // FIXME: Appends CR
         return true
     }
     
     func yearFieldShouldChange(range: NSRange,
                                replacementString string: String) -> Bool {
+        if let ch = string.first,
+            !"0123456789".contains(ch) {
+                return false
+        }
         representedSearch.year = yearField
             .contentReplacing(range: range, with: string)
         enableSearchButton()

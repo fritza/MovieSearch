@@ -92,7 +92,7 @@ struct SearchResponse: Decodable {
 
 enum Constants {
     static let apiKey = "ef233be4"
-    private static let _baseDataRequest = "http://www.omdbapi.com/?apikey={KEY}&"
+    private static let _baseDataRequest = "https://www.omdbapi.com/?apikey={KEY}&"
     static var baseRequest: String = {
         return Constants._baseDataRequest.replacingOccurrences(of: "{KEY}", with: Constants.apiKey)
     }()

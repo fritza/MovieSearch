@@ -9,9 +9,30 @@
 import UIKit
 
 class ResultsController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    
+    var content: SearchResponse? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView?.reloadData()
+            }
+        }
+    }
+    
+    var representedURL: URL! {
+        didSet {
+            content = nil
+            if let url = representedURL {
+                reloadFrom(url: url)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.reloadData()
+
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -19,9 +40,32 @@ class ResultsController: UIViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    
+    struct State {
+        var request: URLRequest
+        var session: URLSession
+        var url:     URL
+        var task:    URLSessionDataTask!
+        
+        init(url: URL) {
+            self.url = url
+            let session = URLSession(configuration: .default)
+            self.session = session
+            self.request = URLRequest(url: url)
+        }
+        
+        mutating func execute(closure: @escaping (Data?, URLResponse?, Error?) -> Void) {
+            self.task = session.dataTask(with: url, completionHandler: closure)
+            self.task.resume()
+        }
+    }
+    var currentState: State!
 }
 
 extension ResultsController: UITableViewDelegate, UITableViewDataSource {
+    static let cellIdentifier = "simpleListingCell"
+    
     enum CellViewTags: Int {
         case title = 1
         case year
@@ -37,18 +81,25 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return (content == nil) ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        assert(content != nil)
+        // FIXME: handles only the single-page case.
+        return content!.search.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView
+            .dequeueReusableCell(
+                withIdentifier: ResultsController.cellIdentifier,
+                for: indexPath)
         
-        // Configure the cell...
+        let item = content!.search[indexPath.row]
+        cell.textLabel!.text = item.title
+        cell.detailTextLabel!.text = item._year
         
         return cell
     }
@@ -61,6 +112,28 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+extension ResultsController {
+    func reloadFrom(url: URL) {
+        self.currentState = State(url: url)
+        self.currentState.execute { (data, response, error) in
+            if let error = error {
+                // put up an alert or something
+                print(#function, "- error:", error)
+                return
+            }
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    self.content = try decoder.decode(SearchResponse.self, from: data)
+                }
+                catch {
+                    print("Didn't decode:", error)
+                }
+            }
+        }
+    }
+}
 
 
 /*

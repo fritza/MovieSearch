@@ -11,7 +11,7 @@ import Foundation
 enum Constants {
     static let momBaseName = "MovieSearch"
     static let apiKey = "ef233be4"
-    private static let _baseDataRequest = "http://www.omdbapi.com/?apikey={KEY}&"
+    private static let _baseDataRequest = "https://www.omdbapi.com/?apikey={KEY}&"
     static var baseRequest: String = {
         return Constants._baseDataRequest.replacingOccurrences(of: "{KEY}", with: Constants.apiKey)
     }()
@@ -21,7 +21,7 @@ enum Constants {
     }()
 }
 
-// http://www.omdbapi.com/?apikey=ef233be4&i=tt0114924
+// https://www.omdbapi.com/?apikey=ef233be4&i=tt0114924
 
 /// Aggregate the parameters for an OMDb search.into a dictionary, `URL`, or URL string.
 ///
