@@ -14,8 +14,19 @@ class ResultsController: UIViewController {
     var content: SearchResponse? {
         didSet {
             DispatchQueue.main.async {
-                self.tableView?.reloadData()
+                if let items = self.content?.search {
+                    self.contentItems = items
+                }
+                else {
+                    self.contentItems = []
+                }
             }
+        }
+    }
+    
+    var contentItems: [SearchElement] = [] {
+        didSet {
+            self.tableView?.reloadData()
         }
     }
     
@@ -28,8 +39,26 @@ class ResultsController: UIViewController {
         }
     }
     
+    var loader: MovieLoader?
+    
+    var representedQuery: Query? {
+        didSet {
+            guard let qry = representedQuery else {
+                loader = nil
+                return
+            }
+            loader = MovieLoader(query: qry)
+            loader?.start()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNotifications()
+        // FIXME: Orphan notification handlers
+        // On view did disappear: Remove the handlers
+        // On did appear, reenable the handers _and_ ask the loader
+        
         
         self.tableView.reloadData()
 
@@ -61,8 +90,76 @@ class ResultsController: UIViewController {
         }
     }
     var currentState: State!
+    var notificationHandlers: [NSObjectProtocol] = []
+
 }
 
+// MARK: - Fetched results
+extension ResultsController {
+    
+    func setNotifications() {
+        let arrived = NotificationCenter.default
+            .addObserver(forName: MovieResultsArrived, object: nil, queue: .main) { notice in
+                guard let loader = notice.object as? MovieLoader else {
+                    fatalError()
+                }
+                self.contentItems = loader.searchResults
+        }
+        
+        let completed = NotificationCenter.default
+            .addObserver(forName: MovieFetchCompleted, object: nil, queue: .main) { notice in
+                if self.contentItems.count == 0 {
+                    let alert = UIAlertController(title: "Done", message: "OMDb has no matching movies for you.", preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "OK", style: .default,
+                                           handler: nil)
+                    alert.addAction(ok)
+                    self.present(alert,
+                                 animated: true,
+                             completion: nil)
+                }
+        }
+        
+        // Ignoring MovieFetchCompleted for now, all I'm doing is updating the listing as it comes in.
+        let cleared =  NotificationCenter.default
+                   .addObserver(forName: MovieResultsCleared, object: nil, queue: .main) { _ in
+                       self.contentItems = []
+        }
+        
+        let errored = NotificationCenter.default
+            .addObserver(forName: MovieFetchFailed, object: nil, queue: .main) { notice in
+                
+                var title = "Sorry"
+                var message = "An error has occurred in the loading of your movies. It was unexpected, so we can't tell you exactly why."
+                
+                if let error = notice.userInfo?[fetchErrorKey] as? Error {
+                    title = "Error"
+                    message = error.localizedDescription
+                }
+                
+                message += "\n\nThe list shows you what the app got so far."
+                
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default,
+                                       handler: nil)
+                alert.addAction(ok)
+                self.present(alert,
+                             animated: true,
+                             completion: nil)
+                self.contentItems = []
+        }
+        
+        notificationHandlers = [arrived, completed, cleared, errored]
+    }
+    
+    func removeNotifications() {
+        for n in notificationHandlers {
+            NotificationCenter.default.removeObserver(n)
+        }
+        notificationHandlers = []
+    }
+}
+
+// MARK: - Table view injections
 extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     static let cellIdentifier = "simpleListingCell"
     
@@ -81,14 +178,14 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return (content == nil) ? 0 : 1
+        return contentItems.isEmpty ? 0 : 1 // (content == nil) ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        assert(content != nil)
+        assert(!contentItems.isEmpty)
         // FIXME: handles only the single-page case.
-        return content!.search.count
+        return contentItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,7 +194,7 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
                 withIdentifier: ResultsController.cellIdentifier,
                 for: indexPath)
         
-        let item = content!.search[indexPath.row]
+        let item = contentItems[indexPath.row]
         cell.textLabel!.text = item.title
         cell.detailTextLabel!.text = item._year
         
@@ -134,6 +231,23 @@ extension ResultsController {
         }
     }
 }
+
+
+/*
+ Register the current batch.
+ Perform the #1 fetch. That's your first (maybe only) batch of items.
+ This was page 1
+ Capture the total count
+ 
+ Loop
+    A
+    subtract the size of the last batch from the total
+    if you're still > 0,
+        increment the page
+        refresh the
+ 
+ 
+ */
 
 
 /*

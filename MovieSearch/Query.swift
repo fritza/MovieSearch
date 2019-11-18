@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum Constants {
     static let momBaseName = "MovieSearch"
@@ -72,6 +73,19 @@ struct Query {
         return isComplete ? parameters : nil
     }
     
+    mutating func urlString(page: Int = 1) -> String? {
+        self.page = page
+        guard let dictionary = asDictionary else { return nil }
+        
+        let urlParams = dictionary.map {
+            pair in
+            return "\(pair.0)=\(String(describing: pair.1))"
+        }
+        .joined(separator: "&")
+        
+        return Constants.baseRequest + urlParams
+    }
+    
     /// The parameters rendered as an absolute URL path.
     ///
     /// `nil` if `isComplete` is `false``
@@ -87,6 +101,11 @@ struct Query {
         return Constants.baseRequest + urlParams
     }
     
+    mutating func url(page: Int = 1) -> URL? {
+        guard let string = urlString(page: page) else { return nil }
+        return URL(string: string)
+    }
+    
     /// The parameters as a `URL` for the query
     ///
     /// `nil` if `isComplete` is `false``
@@ -95,4 +114,102 @@ struct Query {
         return URL(string:string)
     }
 }
+
+let MovieResultsArrived = NSNotification.Name("movie results arrived")
+let MovieFetchCompleted = NSNotification.Name("movie fetch completed")
+let MovieResultsCleared = NSNotification.Name("movie results cleared")
+let MovieFetchFailed = NSNotification.Name("movie fetch failed")
+let fetchErrorKey = "fetch error key"
+
+class MovieLoader {
+    var query: Query
+    var totalCount: Int
+    var error: Error?
+    
+    var searchResults = Array<SearchElement>()
+    func append(results: [SearchElement]) {
+        // This is probably paranoid, but I want to be sure.
+        DispatchQueue.global(qos: .background).async {
+            self.searchResults += results
+            NotificationCenter.default
+                .post(name: MovieResultsArrived, object: self)
+            // Clients are responsible for directing their UI actions to the main opersation queue
+        }
+    }
+    
+    func clear() {
+        DispatchQueue.global(qos: .background).async {
+            self.searchResults = []
+            self.error = nil
+            self.totalCount = 0
+            NotificationCenter.default
+                .post(name: MovieResultsCleared, object: self)
+            // Clients are responsible for directing their UI actions to the main opersation queue
+        }
+    }
+    
+    static let decoder = JSONDecoder()
+    
+    init(query: Query) {
+        self.query = query
+        self.totalCount = 0
+    }
+    
+    func request(page number: Int) {
+        // TODO: Keep some kind of token for cancelling fetches.
+        //       let req =
+        let urlPageN = query.url(page: number)
+        print("URL for page", number, "is", urlPageN ?? "NONE")
+        Alamofire.request(urlPageN!)
+            .responseData { (response) in
+                switch response.result {
+                case .success(let data):
+                    do {
+                        let result = try MovieLoader.decoder.decode(SearchResponse.self, from: data)
+                        self.append(results: result.search)
+                        if number == 1 {
+                            self.totalCount = result.totalResults
+                        }
+                        self.totalCount -= result.search.count
+                        if self.totalCount > 0 && result.search.count > 0 {
+                            self.request(page: number+1)
+                        }
+                        else {
+                            NotificationCenter.default
+                                .post(name: MovieFetchCompleted,
+                                      object: self)
+                        }
+                    }
+                    catch {
+                        self.error = error
+                        self.totalCount = 0 // Can't hurt to set an additional condition to stop the cycle.
+                        NotificationCenter.default
+                            .post(name: MovieFetchFailed,
+                                  object: self,
+                                  userInfo: [fetchErrorKey: error])
+                    }
+                    
+                case .failure(let error):
+                    // Post an alert
+                    // end the chain
+                    self.error = error
+                    self.totalCount = 0 // Can't hurt to set an additional condition to stop the cycle.
+                    NotificationCenter.default
+                        .post(name: MovieFetchFailed,
+                              object: self,
+                              userInfo: [fetchErrorKey: error])
+                    break
+                }
+        }
+    }
+    
+    
+    func start() {
+        self.searchResults = []
+        self.totalCount = 0
+        request(page: 1)
+    }
+}
+
+
 

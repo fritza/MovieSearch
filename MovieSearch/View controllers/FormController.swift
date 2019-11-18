@@ -130,7 +130,8 @@ class FormController: UIViewController {
                 let url = query.url else {
                     fatalError(#function + " Segue: \(segue.identifier!) was hit without a valid query URL.")
             }
-            dest.representedURL = url
+//            dest.representedURL = url
+            dest.representedQuery = query
         }
     }
 }
