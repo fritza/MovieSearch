@@ -10,7 +10,14 @@ import UIKit
 import AlamofireImage
 
 
-
+/// A table controller displaying the results of an OMDb query.
+///
+/// The `Query` pushed into `representedQuery` is converted into paginated subqueries.
+/// The results of these are added to `contentItems`, an array of `SearchElement` results,
+/// and in turn are displayed in the table.
+/// - bug: Adding results is kind of jerky at the moment,
+/// - bug: There is only one sort order supported.
+/// - bug: The order is year > title; it'd be nice to turn that into a section dictionary.
 class ResultsController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
@@ -34,8 +41,10 @@ class ResultsController: UIViewController {
     }
     #endif
     
-    var loader: MovieLoader?
+    /// The object that handles the fetch of a queery page
+    private var loader: MovieLoader?
     
+    /// The non-derived source of the contents of the view. Setting `representedQuery` truggers a data fetch and a table refresh.
     var representedQuery: Query? {
         didSet {
             guard let qry = representedQuery else {
@@ -68,7 +77,19 @@ class ResultsController: UIViewController {
 // MARK: - Fetched results
 extension ResultsController {
     
+    /**
+     Install notification handlers for
+     
+     The handlers respond to
+     * arriving records
+     * completion of the load
+     * clearing the results list
+     * reporting errors
+     
+     - bug: The handlers should be installed at did-show, and uninstalled at will-hide. (At did-show, the installer should check the loader to see whether it needs to catch up on records that had arrived in tthe mesn time.
+ */
     func setNotifications() {
+        // New records have arrived
         let arrived = NotificationCenter.default
             .addObserver(forName: MovieResultsArrived, object: nil, queue: .main) { notice in
                 guard let loader = notice.object as? MovieLoader else {
@@ -83,6 +104,7 @@ extension ResultsController {
                 self.title = "\(loader.initialCount) results"
         }
         
+        /// All pages were retrieved successfully
         let completed = NotificationCenter.default
             .addObserver(forName: MovieFetchCompleted, object: nil, queue: .main) { notice in
                 guard let loader = notice.object as? MovieLoader else {
@@ -107,11 +129,14 @@ extension ResultsController {
         }
         
         // Ignoring MovieFetchCompleted for now, all I'm doing is updating the listing as it comes in.
+        
+        // The loader cleared its contents.
         let cleared =  NotificationCenter.default
                    .addObserver(forName: MovieResultsCleared, object: nil, queue: .main) { _ in
                        self.contentItems = []
         }
         
+        // An error has escaped the loader. Post an alert to describe it.
         let errored = NotificationCenter.default
             .addObserver(forName: MovieFetchFailed, object: nil, queue: .main) { notice in
                 
@@ -138,6 +163,7 @@ extension ResultsController {
         notificationHandlers = [arrived, completed, cleared, errored]
     }
     
+    /// Remive the notification handlers installed by `setNotifications()`
     func removeNotifications() {
         for n in notificationHandlers {
             NotificationCenter.default.removeObserver(n)
@@ -148,21 +174,6 @@ extension ResultsController {
 
 // MARK: - Table view injections
 extension ResultsController: UITableViewDelegate, UITableViewDataSource {
-//    static let cellIdentifier = "simpleListingCell"
-    static let cellIdentifier = "bigPosterListingCell"
-    
-    enum CellViewTags: Int {
-        case title = 1
-        case year
-        case rating
-        case helpfulInfo
-        case thumbnail = 100
-        
-        static var labelTags: Set<CellViewTags> = {
-            return Set([.title, .year, .rating, .helpfulInfo])
-        }()
-    }
-    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -190,58 +201,3 @@ extension ResultsController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
-/*
- override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
- 
- // Configure the cell...
- 
- return cell
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the specified item to be editable.
- return true
- }
- */
-
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
- 
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the item to be re-orderable.
- return true
- }
- */
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */

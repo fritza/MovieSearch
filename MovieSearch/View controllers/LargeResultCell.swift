@@ -9,9 +9,13 @@
 import UIKit
 import AlamofireImage
 
-class LargeResultCell: UITableViewCell {
+/// A table-view cell specialized to display the summary of an OMDb record.
+///
+/// The available data are the title, yar, and poster image. The current `.xib` and the outlets here hoped for more.
+final class LargeResultCell: UITableViewCell {
     static let cellIdentifier = "bigPosterCell"
     
+    /// The `UIView` tags on the labels and image view within the cell.
     enum CellViewTags: Int {
         case title = 1
         case year
@@ -24,17 +28,20 @@ class LargeResultCell: UITableViewCell {
         }()
     }
     
+    /// The `SearchElement` representing a single item in the results of a search.``
     var representedSearchElement: SearchElement! {
         didSet {
             fillSubviews()
         }
     }
     
-    var posterView: UIImageView? {
+    /// Convenience accessor to the `UIImageView` that is to contain the poster image
+    private var posterView: UIImageView? {
         return viewWithTag(CellViewTags.thumbnail.rawValue) as? UIImageView
     }
     
-    lazy var afFilter: AspectScaledToFitSizeFilter! = {
+    /// The `AlamoFireImage` filter that aspect-fits the poster to the size of the image view.
+    private lazy var afFilter: AspectScaledToFitSizeFilter! = {
         if let imageView = posterView {
             let roundedSize = imageView.bounds.size.integral
             let retval = AspectScaledToFitSizeFilter(size: roundedSize)
@@ -43,8 +50,10 @@ class LargeResultCell: UITableViewCell {
         return nil
     }()
 
-    
-    func fillSubviews() {
+    /// Distribute the data in `representedSearchElement` to the subviews of the cell.
+    ///
+    /// It's acceptable if `representedSearchElement` is `nil`, as that blanks-out the labels, and the `func` is smart enough to stuff a placeholder into the image view.``
+    private func fillSubviews() {
         if viewWithTag(1) == nil { return }
         
         func fillLLabel(_ tag: CellViewTags, with str: String?) {
@@ -96,7 +105,8 @@ class LargeResultCell: UITableViewCell {
         cancelImageLoad()
     }
     
-    func cancelImageLoad() {
+    /// Tells the `posterView` image view to stop loading the current content and make ready for a new image.
+    private func cancelImageLoad() {
         posterView?.af_cancelImageRequest()
         posterView?.layer.removeAllAnimations()
         posterView?.image = nil

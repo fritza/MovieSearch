@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Eventually, a detailed description of a single movie.
 class ItemController: UIViewController {
 
     override func viewDidLoad() {

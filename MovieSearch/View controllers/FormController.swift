@@ -10,7 +10,11 @@ import UIKit
 import Alamofire
 
 // MARK: - SearchState
-class SearchState {
+
+/// Represents the current values that go into an OMDb query: Title, type, and year.
+///
+/// It validates the content as suitable for transmission, and creates a `Query` to initialize a `ResultsController`..
+final class SearchState {
     var title: String = ""
     var mediaType: MediaType = .movie
     var year: String = ""
@@ -28,16 +32,19 @@ class SearchState {
         return (1850...2200).contains(decoded.intValue)
     }
     
+    /// Whether the year is blank/in-range, and the title long enough to be worth searching for.
     var canAllowSearching: Bool {
         return yearIsValid && title.count > 3
     }
     
+    /// Return all properties ot default (blank, and year 2000)
     func reset() {
         title = ""
         mediaType = .movie
         year = "2000"
     }
     
+    /// The state of the search criteria, expressed as an OMDb query
     var query: Query? {
         guard canAllowSearching else { return nil }
         var retval = Query()
@@ -45,6 +52,7 @@ class SearchState {
         return retval
     }
     
+    /// The URL derived from the search criteria.
     var queryURL: URL? {
         return query?.url
     }
@@ -52,10 +60,6 @@ class SearchState {
 
 // MARK: - FormController
 class FormController: UIViewController {
-    // TODO: A state variable.
-    // Maybe a class object
-    
-
     // MARK: IBOutlet
     @IBOutlet weak var mediaTypeSelector: UISegmentedControl!
     @IBOutlet weak var titleField: UITextField!
@@ -64,7 +68,7 @@ class FormController: UIViewController {
     
     var representedSearch = SearchState()
 
-    // MARK: View initialization
+    // MARK: Populating controls
     
     private func enableSearchButton() {
         searchButton.isEnabled = representedSearch.canAllowSearching
@@ -94,10 +98,12 @@ class FormController: UIViewController {
     
     // MARK: IBAction
     
+    /// Respond to the segmented control by noiting the selected `MediaType`
     @IBAction func queryTypeChanged(_ sender: UISegmentedControl) {
         representedSearch.mediaType = MediaType(rawValue: sender.selectedSegmentIndex)!
     }
     
+    /// The **Clear** button
     @IBAction func clearTapped(_ sender: Any) {
         resetViews()
     }
@@ -106,6 +112,9 @@ class FormController: UIViewController {
         case toResults = "show results table"
     }
     
+    /// Initialize the destinations of the segues out of the view.
+    ///
+    /// For now, there’s only one: feed `representedSearch.query` to the destination `ResultsController`, which will execute the query and display the results.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier,
             let segueType = Segues(rawValue: id) else {
@@ -150,7 +159,10 @@ extension FormController: UITextFieldDelegate {
 
         return true
     }
-    
+
+    /// Examine a proposed edit to the title field and (always) approve it.
+    ///
+    /// The purpose is to keep the `representedSearch` and the **Search** button current.
     func titleFieldShouldChange(range: NSRange, replacementString string: String) -> Bool {
         representedSearch.title = titleField
             .contentReplacing(range: range, with: string)
@@ -158,6 +170,9 @@ extension FormController: UITextFieldDelegate {
         return true
     }
     
+    /// Examine a proposed edit to the title field and approve numeric changes only
+    ///
+    /// The purpose is to keep the `representedSearch` and the **Search** button current.
     func yearFieldShouldChange(range: NSRange,
                                replacementString string: String) -> Bool {
         if let ch = string.first,
@@ -173,10 +188,13 @@ extension FormController: UITextFieldDelegate {
 
 // MARK: - UITextField
 extension UITextField {
+    /// The results of replacing a range in a text field's content with a substitute string.
+    /// - Parameters:
+    ///   - range: The `NSRange` to be replaced from the field's `text`.
+    ///   - str: The `String` to substitute into that range.
     func contentReplacing(range: NSRange, with str: String) -> String {
         let content = (text ?? "") as NSString
         let newContent = content.replacingCharacters(in: range, with: str)
         return newContent
     }
 }
-
