@@ -3,7 +3,7 @@
 **A coding exercise by Fritz Anderson** (`fritza@mac.com`)  
 version 1.0 (1) of November 17, 2019
 
-**Public repository**: [`https://github.com/fritza/MovieSearch`](https://github.com/fritza/MovieSearch)
+**Public repository**: The repo home page is [`https://github.com/fritza/MovieSearch`](https://github.com/fritza/MovieSearch). The repository URL, or a `.zip` archive, can be had from there.
 
 **Executable**: This initial release is in review. I am now accepting Testflight addresses.
 
