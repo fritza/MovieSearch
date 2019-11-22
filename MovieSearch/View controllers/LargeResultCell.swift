@@ -80,9 +80,11 @@ final class LargeResultCell: UITableViewCell {
             )
         }
         else {
+            #if DEBUG
             if let rse = representedSearchElement {
                 print(rse.title, rse.posterURLString )
             }
+            #endif
             posterView?.image = UIImage(named: "missing film")
         }
     }

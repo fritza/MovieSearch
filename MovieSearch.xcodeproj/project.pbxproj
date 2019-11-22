@@ -426,6 +426,7 @@
 				CODE_SIGN_ENTITLEMENTS = MovieSearch/MovieSearch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J2E8MMY7GM;
 				INFOPLIST_FILE = MovieSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -449,6 +450,7 @@
 				CODE_SIGN_ENTITLEMENTS = MovieSearch/MovieSearch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J2E8MMY7GM;
 				INFOPLIST_FILE = MovieSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
