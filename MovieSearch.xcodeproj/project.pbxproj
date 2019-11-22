@@ -33,7 +33,7 @@
 		1F44DBBD23831321004DF9D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1F44DBDF238319D5004DF9D3 /* CG+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CG+extensions.swift"; sourceTree = "<group>"; };
 		1F44DBE123832635004DF9D3 /* LargeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeResultCell.swift; sourceTree = "<group>"; };
-		1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LargeResultCell.xib; path = ../../../LargeResultCell.xib; sourceTree = "<group>"; };
+		1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeResultCell.xib; sourceTree = "<group>"; };
 		1F665CB0238352470082A824 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		1F665CB1238352470082A824 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/Mac/AlamofireImage.framework; sourceTree = "<group>"; };
 		1F939B30237C8412001E53DF /* MovieSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
