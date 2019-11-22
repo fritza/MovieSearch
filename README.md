@@ -31,7 +31,7 @@ It requires iOS 13.2, but does not use SwiftUI. iOS 13 has probably 70–80% pen
 
 First, check the project files out of the GitHub repository. There are two options.
 
-!. Using the **Welcome to Xcode (⇧⌘1)** window, select **Clone an existing project**.  Enter the repository URL (``https://github.com/fritza/MovieSearch.git`) in the text field at the top. Click the **Clone** button, then select the _master_ branch, then use the save-file panel to name and choose a location for the project.
+!. Using the **Window → Welcome to Xcode (⇧⌘1)** window, select **Clone an existing project**.  Enter the repository URL (``https://github.com/fritza/MovieSearch.git`) in the text field at the top. Click the **Clone** button, then select the _master_ branch, then use the save-file panel to name and choose a location for the project.
 
 2. On the command line, choose a location in which to place the project directory, and clone the project.
 
@@ -53,7 +53,7 @@ Make sure you've installed CocoaPods
 sudo gem install cocoapods
 ```
 
-> macOS 10.15 Catalina has tightened its support for downloaded binaries, including script interpreters. Either build a Ruby locally via a package manager like `rvm`, or use the _System Settings/Security & Privacy/General_ to authorize the use of the interpreter.
+> macOS 10.15 Catalina has tightened its support for downloaded binaries, including script interpreters. Either build a Ruby locally via a package manager like `rvm`, or use the **System Settings → Security & Privacy → General** panel to authorize the use of the interpreter.
 
 Using the command line, change the working directory to the one cloned by `git` or Xcode, and install Alamofire
 
@@ -69,6 +69,8 @@ $ pod install
 When CocoaPods installs frameworks, it modifies the build process by wrapping the project in an Xcode framework file. Find it in Finder and open it.
 
 The project will be ready for building and use.
+
+>  **Note:** I have found that on a Release (Archive) build, one or more of the `import`s of Alamofire modules fail for inability to find the module. Deep-cleaning the built products directory (**Product → Clean Build folder - ⌥⇧⌘K** (note the option key) and retrying results in a clean build.
 
 ---
 
