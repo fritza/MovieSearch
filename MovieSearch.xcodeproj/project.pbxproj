@@ -31,7 +31,7 @@
 		1F10B3DE23835D9C0093FC5E /* MovieSearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieSearch.entitlements; sourceTree = "<group>"; };
 		1F10B3DF238465860093FC5E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		1F44DBBD23831321004DF9D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1F44DBDF238319D5004DF9D3 /* CG+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CG+extensions.swift"; path = "../../CG+extensions.swift"; sourceTree = "<group>"; };
+		1F44DBDF238319D5004DF9D3 /* CG+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CG+extensions.swift"; sourceTree = "<group>"; };
 		1F44DBE123832635004DF9D3 /* LargeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeResultCell.swift; sourceTree = "<group>"; };
 		1F44DBE323832B83004DF9D3 /* LargeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LargeResultCell.xib; path = ../../../LargeResultCell.xib; sourceTree = "<group>"; };
 		1F665CB0238352470082A824 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
